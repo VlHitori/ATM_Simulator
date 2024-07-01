@@ -25,7 +25,8 @@
     # администратор
     ./runATMAdmin.sh || ./runATM.sh -admin
 
-    для windows (предпологает наличие установленний java в каталоге С:\Program Files\Java\jdk-22)
+    для windows (предпологает наличие установленний java
+        в каталоге С:\Program Files\Java\jdk-*)
     запустить .bat файлы
     # пользователь
     runATM.bat

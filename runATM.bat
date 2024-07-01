@@ -1,8 +1,17 @@
-@echo off@echo off
-set JAVA_HOME=C:\Program Files\Java\jdk-22
+@echo off
+
+for /d %%d in ("C:\Program Files\Java\jdk-*") do (
+    set "JAVA_HOME=%%d"
+    goto :foundJDK
+)
+
+echo JDK not find in C:\Program Files\Java
+goto :end
+
+:foundJDK
+echo Used jdk with %JAVA_HOME%
 
 set SRC_PATH=src
-
 set BIN_PATH=bin
 
 if not exist "%BIN_PATH%" (
@@ -11,4 +20,12 @@ if not exist "%BIN_PATH%" (
 
 "%JAVA_HOME%\bin\javac" -d %BIN_PATH% %SRC_PATH%\*.java
 
+if %errorlevel% neq 0 (
+    echo Error
+    goto :end
+)
+
 "%JAVA_HOME%\bin\java" -cp %BIN_PATH% Main
+
+:end
+pause
