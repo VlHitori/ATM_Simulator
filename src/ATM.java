@@ -9,7 +9,7 @@ public class ATM {
         cards = DataHandler.loadCards();
         while(true) {
             System.out.println("Enter your card num or 'quit' (format: XXXX-XXXX-XXXX-XXXX): ");
-            String cardNumber = InputValidator.getValidStringInput();
+            String cardNumber = InputHandler.getValidStringInput();
             if (cardNumber.equalsIgnoreCase("quit")) {
                 break;
             }
@@ -39,7 +39,7 @@ public class ATM {
         try {
             for (int i = 0; i < 3; i++) {
                 System.out.println("Enter your PIN code: ");
-                String pin = InputValidator.getValidStringInput();
+                String pin = InputHandler.getValidStringInput();
                 if (card.validatePin(pin)) {
                     return true;
                 } else {
@@ -57,7 +57,7 @@ public class ATM {
     private void performOperations(BankAccount account) {
         while (true) {
             System.out.println("Choose an operation:\n 1 - Cheeck Balance \n 2 - Withdraw\n 3 - Deposit \n 4 - Exit");
-            int choice = InputValidator.getValidIntInput();
+            int choice = InputHandler.getValidIntInput();
                 
             switch(choice) {
                 case 1: 
@@ -65,7 +65,7 @@ public class ATM {
                     break;
                 case 2:
                     System.out.println("Enter amount of withdraw: ");
-                    double amount = InputValidator.getValidDoubleInput();
+                    double amount = InputHandler.getValidDoubleInput();
                     
                     if (amount <= ATM_FOUNDS_LIMIT && amount <= account.getBalance()) {
                         account.withdraw(amount);
@@ -76,7 +76,7 @@ public class ATM {
                     break;
                 case 3:
                     System.out.println("Enter amount to deposit: ");
-                    double depositAmount = InputValidator.getValidDoubleInput();
+                    double depositAmount = InputHandler.getValidDoubleInput();
                     
                     if (depositAmount <= 1_000_000) {
                         account.deposit(depositAmount);
@@ -97,7 +97,7 @@ public class ATM {
         cards = DataHandler.loadCards();
         while(true) {
             System.out.println("Admin mode: \n 1 - Add new card \n 2 - Unblock card \n 3 - Delete card \n 4 - Exit admin mode \n Choose an option: ");
-            int option = InputValidator.getValidIntInput();
+            int option = InputHandler.getValidIntInput();
             switch(option) {
                 case 1:
                     addNewCard();
@@ -120,17 +120,17 @@ public class ATM {
 
     private void addNewCard() {
         System.out.println("Enter new card number (format: XXXX-XXXX-XXXX-XXXX)");
-        String cardNumber = InputValidator.getValidStringInput();
+        String cardNumber = InputHandler.getValidStringInput();
         if (cards.containsKey(cardNumber)) {
             System.out.println("Card number already exists.");
             return;
         }
 
         System.out.println("Enter new PIN code: ");
-        String pinCode = InputValidator.getValidStringInput();
+        String pinCode = InputHandler.getValidStringInput();
 
         System.out.println("Enter initial balance: ");
-        double balance = InputValidator.getValidDoubleInput();
+        double balance = InputHandler.getValidDoubleInput();
         BankAccount newAccount = new BankAccount(cardNumber, balance);
         Card newCard = new Card(cardNumber, pinCode, newAccount);
         cards.put(cardNumber, newCard);
@@ -141,7 +141,7 @@ public class ATM {
     private void unblockCard() {
         cards = DataHandler.loadCards();
         System.out.println("Enter number card");
-        String cardNumber = InputValidator.getValidStringInput();
+        String cardNumber = InputHandler.getValidStringInput();
         Card card = cards.get(cardNumber);
 
         if (card == null) {
@@ -160,7 +160,7 @@ public class ATM {
 
     private void deleteCard() {
         System.out.println("Enter new card number (format: XXXX-XXXX-XXXX-XXXX)");
-        String cardNumber = InputValidator.getValidStringInput();
+        String cardNumber = InputHandler.getValidStringInput();
         if (cards.containsKey(cardNumber)) {
             cards.remove(cardNumber);
             System.out.println("The card has been deleted");
