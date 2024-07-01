@@ -1,6 +1,6 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-public class InputValidator {
+public class InputHandler {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static int getValidIntInput() {
